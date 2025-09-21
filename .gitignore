@@ -1,0 +1,15 @@
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Django stuff
+db.sqlite3
+media/
+
+# Environment
+.env
+.venv/
+
+# OS files
+.DS_Store
+Thumbs.db
