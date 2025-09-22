@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block title %}Shopping Cart - Pet Store{% endblock %}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAFAFC;
+    --card:#FFFFFF;
+    --ink:#101828;
+    --muted:#667085;
+    --line:#EEF0F4;
+    --pri:#6C7EE1;
+    --pri-ink:#3F51B5;
+    --shadow:0 6px 28px rgba(16,24,40,.08);
+    --radius:14px;
+    --gap:20px;
+    --container:1120px;
+  }
+  body{
+    margin:0;
+    font-family:"Inter","Noto Sans",system-ui;
+    background:var(--bg);
+    color:var(--ink);
+  }
+  .container{max-width:var(--container); margin:0 auto; padding:20px;}
+  .sect-head{display:flex; align-items:center; justify-content:space-between; margin:28px 0 20px}
+  .sect-title{font-size:22px; font-weight:700}
+  .cart-grid{
+    display:grid; gap:var(--gap);
+    grid-template-columns: 1fr;
+  }
+  .cart-item{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    display:flex; gap:16px; padding:14px; align-items:center; box-shadow:var(--shadow);
+  }
+  .thumb{
+    width:120px; height:120px; background:#f5f6fa; border-radius:var(--radius);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .thumb img{
+    max-width:100%; max-height:100%; object-fit:cover;
+  }
+  .item-info{flex:1;}
+  .title{font-weight:700; font-size:1rem; margin-bottom:4px;}
+  .meta{color:var(--muted); font-size:14px}
+  .price{margin-top:8px; font-weight:700; color:#0F8C5A}
+  .quantity-control{display:flex; align-items:center; gap:8px; margin-top:8px;}
+  .qty-btn{
+    width:28px; height:28px; border:none; background:var(--pri); color:#fff; border-radius:6px; cursor:pointer;
+  }
+  .qty-btn:hover{background:var(--pri-ink);}
+  .remove-btn{
+    background:none; border:none; color:#d9534f; cursor:pointer; font-size:14px; margin-top:8px;
+  }
+  .cart-summary{
+    margin-top:30px; background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    padding:20px; box-shadow:var(--shadow);
+  }
+  .summary-row{display:flex; justify-content:space-between; margin-bottom:10px;}
+  .summary-total{font-weight:700; font-size:1.1rem;}
+  .checkout-btn{
+    width:100%; padding:12px; border:none; border-radius:var(--radius);
+    background:var(--pri); color:#fff; font-weight:600; cursor:pointer; font-size:16px;
+  }
+  .checkout-btn:hover{background:var(--pri-ink);}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="sect-head">
+  <div class="sect-title">Your Shopping Cart</div>
+  <a class="see-all" href="/products/">Continue Shopping</a>
+</div>
+
+<div class="cart-grid">
+  <!-- Example cart item -->
+  <div class="cart-item">
+    <div class="thumb">
+      <img src="https://shop.smucker.com/cdn/shop/files/High_Res-00829274513753_C1C1_PIM.jpg?v=1737658733&width=1400" alt="Meow Mix Original Choice">
+    </div>
+    <div class="item-info">
+      <div class="title">Meow Mix Original Choice</div>
+      <div class="meta">Cat Food</div>
+      <div class="price">150 EGP</div>
+      <div class="quantity-control">
+        <button class="qty-btn">-</button>
+        <span>1</span>
+        <button class="qty-btn">+</button>
+      </div>
+      <button class="remove-btn">Remove</button>
+    </div>
+  </div>
+
+  <div class="cart-item">
+    <div class="thumb">
+      <img src="https://m.media-amazon.com/images/I/81g2RRMq3-L.jpg" alt="Heated Cat Bed">
+    </div>
+    <div class="item-info">
+      <div class="title">Thermo-Kitty Heated Bed</div>
+      <div class="meta">Cat Bed</div>
+      <div class="price">800 EGP</div>
+      <div class="quantity-control">
+        <button class="qty-btn">-</button>
+        <span>2</span>
+        <button class="qty-btn">+</button>
+      </div>
+      <button class="remove-btn">Remove</button>
+    </div>
+  </div>
+</div>
+
+<div class="cart-summary">
+  <div class="summary-row">
+    <span>Subtotal</span>
+    <span>950 EGP</span>
+  </div>
+  <div class="summary-row">
+    <span>Shipping</span>
+    <span>50 EGP</span>
+  </div>
+  <div class="summary-row summary-total">
+    <span>Total</span>
+    <span>1000 EGP</span>
+  </div>
+  <button class="checkout-btn">Proceed to Checkout</button>
+</div>
+{% endblock %}

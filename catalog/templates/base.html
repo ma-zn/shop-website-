@@ -1,32 +1,49 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Shop Website{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <meta charset="UTF-8" />
+  <title>{% block title %}Paws & Care{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  {% block extra_head %}{% endblock %}
 </head>
 <body>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="/">Paws & Care</a>
+      <nav class="nav">
+        <a href="/" class="nav-link">Home</a>
+        <a href="/products/" class="nav-link">Shop</a>
+        <a href="/about/" class="nav-link">About</a>
+        <a href="/contact/" class="nav-link">Contact</a>
+        <a href="/cart/" class="nav-link btn-cart">Cart</a>
+      </nav>
+      <button class="menu-toggle" aria-label="Open menu">☰</button>
+    </div>
+  </header>
 
-    <header>
-        <h1>Shop Website</h1>
-        <nav>
-            <a href="/">الرئيسية</a>
-            <a href="/products/">المنتجات</a>
-            <a href="/cart/">السلة</a>
-        </nav>
-    </header>
+  <!-- Main -->
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
 
-    <main>
-        {% block content %}
-        <!-- محتوى الصفحات الفرعية -->
-        {% endblock %}
-    </main>
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">Paws & Care</div>
+      <div class="footer-meta">© {{ year }} Paws & Care. All rights reserved.</div>
+    </div>
+  </footer>
 
-    <footer>
-        <p>جميع الحقوق محفوظة &copy; {{ year }}</p>
-    </footer>
-
-    <script src="{% static 'js/main.js' %}"></script>
+  <script>
+    // Simple mobile nav toggle
+    const toggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav');
+    if (toggle && nav) {
+      toggle.addEventListener('click', () => nav.classList.toggle('open'));
+    }
+  </script>
 </body>
 </html>

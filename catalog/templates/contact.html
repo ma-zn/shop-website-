@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Contact Us - Pet Store{% endblock %}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAFAFC;
+    --card:#FFFFFF;
+    --ink:#101828;
+    --muted:#667085;
+    --line:#EEF0F4;
+    --pri:#6C7EE1;
+    --pri-ink:#3F51B5;
+    --shadow:0 6px 28px rgba(16,24,40,.08);
+    --radius:14px;
+    --gap:20px;
+    --container:1120px;
+  }
+  body{
+    margin:0;
+    font-family:"Inter","Noto Sans",system-ui;
+    background:var(--bg);
+    color:var(--ink);
+  }
+  .container{max-width:var(--container); margin:0 auto; padding:20px;}
+  .sect-head{margin:28px 0 20px;}
+  .sect-title{font-size:22px; font-weight:700; margin-bottom:8px;}
+  .contact-card{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    padding:20px; box-shadow:var(--shadow);
+  }
+  .contact-info{
+    display:grid; gap:16px; margin-bottom:20px;
+  }
+  .info-item{
+    display:flex; align-items:center; gap:10px;
+  }
+  .info-icon{
+    font-size:20px; color:var(--pri-ink);
+  }
+  .info-text{
+    font-size:15px; color:var(--ink);
+  }
+  form{
+    display:grid; gap:14px;
+  }
+  input, textarea{
+    width:100%; padding:10px; border:1px solid var(--line); border-radius:var(--radius);
+    font-family:inherit; font-size:14px;
+  }
+  textarea{min-height:120px; resize:vertical;}
+  .btn{
+    border:none; cursor:pointer; padding:12px; border-radius:var(--radius);
+    font-weight:600; background:var(--pri); color:#fff; font-size:15px;
+  }
+  .btn:hover{background:var(--pri-ink);}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="sect-head">
+  <div class="sect-title">Contact Us</div>
+  <p class="meta">We’d love to hear from you! Fill out the form or reach us through the details below.</p>
+</div>
+
+<div class="contact-card">
+  <!-- Contact Information -->
+  <div class="contact-info">
+    <div class="info-item">
+      <span class="info-icon">📍</span>
+      <span class="info-text">123 Pet Street, Cairo, Egypt</span>
+    </div>
+    <div class="info-item">
+      <span class="info-icon">📞</span>
+      <span class="info-text">+20 123 456 789</span>
+    </div>
+    <div class="info-item">
+      <span class="info-icon">✉️</span>
+      <span class="info-text">support@petstore.com</span>
+    </div>
+  </div>
+
+  <!-- Contact Form -->
+  <form method="post" action="#">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="Your Name" required>
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="message" placeholder="Your Message" required></textarea>
+    <button type="submit" class="btn">Send Message</button>
+  </form>
+</div>
+{% endblock %}

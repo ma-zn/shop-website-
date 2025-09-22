@@ -1,10 +1,241 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
-<body>
-    <h1>Welcome to the Home Page 🎉</h1>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Paws & Care — Pet Supplies{% endblock %}
+
+{% block extra_head %}
+<!-- Clean Korean-inspired vibe: soft colors, rounded, airy spacing, subtle shadows -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAFAFC;          /* airy neutral */
+    --card:#FFFFFF;        /* clean white */
+    --ink:#101828;         /* deep ink */
+    --muted:#667085;       /* soft text */
+    --line:#EEF0F4;        /* light border */
+    --pri:#6C7EE1;         /* calm periwinkle */
+    --pri-ink:#3F51B5;     /* deeper accent */
+    --acc:#FFB8C6;         /* pastel pink */
+    --mint:#BFE9DA;        /* mint accent */
+    --y:#FFE8A3;           /* warm pastel */
+    --shadow:0 6px 28px rgba(16,24,40,.08);
+    --radius:14px;
+    --radius-lg:18px;
+    --radius-sm:10px;
+    --gap:16px;
+    --container:1120px;
+  }
+  *,*:before,*:after{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0;
+    font-family:"Inter","Noto Sans",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    background:var(--bg);
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+  }
+  .container{max-width:var(--container); margin:0 auto; padding:20px; }
+
+  /* Header */
+  .site-header{background:var(--card); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:20;}
+  .header-inner{display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:64px;}
+  .brand{font-weight:700; letter-spacing:.2px; color:var(--pri-ink); text-decoration:none; font-size:1.25rem;}
+  .nav{display:flex; align-items:center; gap:14px;}
+  .nav-link{color:var(--muted); text-decoration:none; padding:8px 10px; border-radius:10px;}
+  .nav-link:hover{background:#F5F6FB; color:var(--pri-ink);}
+  .btn-cart{background:var(--pri); color:#fff; padding:10px 14px; border-radius:12px;}
+  .btn-cart:hover{background:var(--pri-ink); color:#fff;}
+  .menu-toggle{display:none; border:none; background:var(--card); font-size:20px; padding:8px 10px; border-radius:10px}
+
+  /* Hero */
+  .hero{
+    background: linear-gradient(140deg, var(--mint) 0%, #E6ECFF 55%, var(--acc) 100%);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+    gap: 24px;
+    box-shadow: var(--shadow);
+  }
+  .hero-badge{display:inline-flex; align-items:center; gap:8px; background:#fff; padding:6px 10px; border-radius:999px; border:1px solid var(--line); color:var(--muted); font-weight:600;}
+  .hero h1{margin:10px 0 8px; font-size:clamp(24px, 3.2vw, 36px); line-height:1.2; letter-spacing:.2px;}
+  .hero p{margin:0; color:#344054;}
+  .hero-cta{margin-top:14px; display:flex; gap:10px; flex-wrap:wrap;}
+  .btn{
+    border:none; cursor:pointer;
+    padding:12px 16px; border-radius:12px; font-weight:600; letter-spacing:.2px;
+    background:var(--pri); color:#fff; box-shadow:0 6px 14px rgba(63,81,181,.18);
+  }
+  .btn:hover{background:var(--pri-ink)}
+  .btn.alt{background:#fff; color:var(--pri-ink); border:1px solid #DDE3FF; box-shadow:none;}
+  .hero-art{
+    background: radial-gradient(120px 90px at 70% 25%, rgba(255,255,255,.7), transparent),
+                linear-gradient(180deg, rgba(255,255,255,.8), rgba(255,255,255,.6));
+    border-radius: var(--radius);
+    min-height: 220px;
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid #E8ECFF;
+  }
+  .hero-art .paw{
+    width:84px; height:84px; background:#fff; border-radius:18px; border:1px solid var(--line);
+    display:grid; place-content:center; box-shadow:var(--shadow); color:var(--pri-ink); font-size:34px;
+  }
+
+  /* Section header */
+  .sect-head{display:flex; align-items:end; justify-content:space-between; margin:28px 0 12px}
+  .sect-title{font-size:20px; font-weight:700}
+  .see-all{color:var(--pri-ink); text-decoration:none; font-weight:600;}
+  .see-all:hover{text-decoration:underline}
+
+  /* Categories (chips/cards) */
+  .cat-grid{
+    display:grid; gap:var(--gap);
+    grid-template-columns: repeat(4, minmax(0,1fr));
+  }
+  .cat{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px; box-shadow:var(--shadow); display:flex; align-items:center; gap:12px;}
+  .cat-emoji{font-size:22px}
+  .cat-name{font-weight:600}
+  .cat-desc{color:var(--muted); font-size:14px}
+
+  /* Products */
+  .prod-grid{
+    display:grid; gap:var(--gap);
+    grid-template-columns: repeat(4, minmax(0,1fr));
+  }
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:14px; overflow:hidden; box-shadow:var(--shadow);
+    display:flex; flex-direction:column;
+  }
+  .thumb{aspect-ratio:4/3; background:linear-gradient(180deg,#F6F8FF,#FDFEFF); display:flex; align-items:center; justify-content:center;}
+  .thumb .tag{background:#fff; border:1px solid #E6EAFF; color:var(--pri-ink); padding:4px 8px; border-radius:999px; font-size:12px; font-weight:700;}
+  .card-body{padding:14px;}
+  .title{font-weight:700; margin:2px 0}
+  .meta{color:var(--muted); font-size:14px}
+  .price{margin-top:8px; font-weight:700; color:#0F8C5A}
+  .actions{display:flex; gap:8px; margin-top:12px}
+  .btn.outline{background:#fff; color:var(--ink); border:1px solid var(--line)}
+  .btn.outline:hover{border-color:#CBD3FF; color:var(--pri-ink)}
+
+  /* Footer */
+  .site-footer{margin-top:40px; background:var(--card); border-top:1px solid var(--line);}
+  .footer-inner{display:flex; align-items:center; justify-content:space-between; padding:18px 0; color:var(--muted)}
+  .footer-brand{font-weight:700; color:var(--pri-ink)}
+
+  /* Responsive */
+  @media (max-width: 1024px){
+    .cat-grid, .prod-grid{grid-template-columns: repeat(3, minmax(0,1fr));}
+    .hero{grid-template-columns:1fr; }
+  }
+  @media (max-width: 680px){
+    .nav{display:none}
+    .nav.open{display:flex; position:absolute; top:64px; left:0; right:0; background:var(--card); padding:12px; border-bottom:1px solid var(--line);}
+    .menu-toggle{display:block}
+    .cat-grid, .prod-grid{grid-template-columns: repeat(2, minmax(0,1fr));}
+    .footer-inner{flex-direction:column; gap:6px}
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero -->
+<section class="hero" aria-label="Welcome banner">
+  <div>
+    <span class="hero-badge">New Season · Gentle Care</span>
+    <h1>Thoughtful pet supplies for everyday comfort</h1>
+    <p>Soft colors, clean lines, and quality essentials your pets will love. Curated toys, grooming, beds, and bowls.</p>
+    <div class="hero-cta">
+      <a href="/products/" class="btn">Shop now</a>
+      <a href="/about/" class="btn alt">Learn more</a>
+    </div>
+  </div>
+  <div class="hero-art">
+    <div class="paw">🐾</div>
+  </div>
+</section>
+
+<!-- Categories -->
+<div class="sect-head">
+  <div class="sect-title">Categories</div>
+  <a class="see-all" href="/products/">See all</a>
+</div>
+<div class="cat-grid">
+  <a class="cat" href="/products/?category=toys" aria-label="Toys">
+    <div class="cat-emoji">🧸</div>
+    <div>
+      <div class="cat-name">Toys</div>
+      <div class="cat-desc">Play & enrichment</div>
+    </div>
+  </a>
+  <a class="cat" href="/products/?category=grooming" aria-label="Grooming">
+    <div class="cat-emoji">🛁</div>
+    <div>
+      <div class="cat-name">Grooming</div>
+      <div class="cat-desc">Brushes & shampoos</div>
+    </div>
+  </a>
+  <a class="cat" href="/products/?category=beds" aria-label="Beds">
+    <div class="cat-emoji">🛏️</div>
+    <div>
+      <div class="cat-name">Beds</div>
+      <div class="cat-desc">Soft & cozy sleep</div>
+    </div>
+  </a>
+  <a class="cat" href="/products/?category=bowl" aria-label="Bowls">
+    <div class="cat-emoji">🍽️</div>
+    <div>
+      <div class="cat-name">Bowls</div>
+      <div class="cat-desc">Food & water</div>
+    </div>
+  </a>
+</div>
+
+<!-- Featured Products -->
+<div class="sect-head" style="margin-top:28px">
+  <div class="sect-title">Featured</div>
+  <a class="see-all" href="/products/">Browse products</a>
+</div>
+
+{% if products %}
+  <div class="prod-grid">
+    {% for p in products %}
+    <div class="card">
+      <div class="thumb">
+        <span class="tag">{{ p.category.name }}</span>
+      </div>
+      <div class="card-body">
+        <div class="title">{{ p.name }}</div>
+        <div class="meta">In stock: {{ p.stock }}</div>
+        <div class="price">{{ p.price }} EGP</div>
+        <div class="actions">
+          <form method="post" action="/cart/add/{{ p.id }}/">
+            {% csrf_token %}
+            <button class="btn" type="submit">Add to cart</button>
+          </form>
+          <a class="btn outline" href="/products/{{ p.id }}/">Details</a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="prod-grid">
+    {% for i in "1234" %}
+    <div class="card">
+      <div class="thumb"><span class="tag">Placeholder</span></div>
+      <div class="card-body">
+        <div class="title">Cozy Pet Bed {{ forloop.counter }}</div>
+        <div class="meta">Gentle & washable</div>
+        <div class="price">299.00 EGP</div>
+        <div class="actions">
+          <button class="btn" disabled>Add to cart</button>
+          <button class="btn outline" disabled>Details</button>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <p class="meta" style="margin-top:10px">Add products in Admin to replace placeholders automatically.</p>
+{% endif %}
+
+{% endblock %}

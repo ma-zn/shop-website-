@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block title %}About Us - Pet Store{% endblock %}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAFAFC;
+    --card:#FFFFFF;
+    --ink:#101828;
+    --muted:#667085;
+    --line:#EEF0F4;
+    --pri:#6C7EE1;
+    --pri-ink:#3F51B5;
+    --shadow:0 6px 28px rgba(16,24,40,.08);
+    --radius:14px;
+    --gap:20px;
+    --container:1120px;
+  }
+  body{
+    margin:0;
+    font-family:"Inter","Noto Sans",system-ui;
+    background:var(--bg);
+    color:var(--ink);
+  }
+  .container{max-width:var(--container); margin:0 auto; padding:20px;}
+  .sect-head{margin:28px 0 20px;}
+  .sect-title{font-size:22px; font-weight:700; margin-bottom:8px;}
+  .about-card{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    padding:20px; box-shadow:var(--shadow);
+  }
+  .about-text{
+    font-size:15px; line-height:1.6; color:var(--ink);
+  }
+  .highlight{
+    color:var(--pri-ink); font-weight:600;
+  }
+  .about-grid{
+    display:grid; gap:var(--gap);
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    margin-top:20px;
+  }
+  .about-item{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    padding:16px; text-align:center; box-shadow:var(--shadow);
+  }
+  .about-icon{
+    font-size:28px; margin-bottom:10px; color:var(--pri-ink);
+  }
+  .about-title{
+    font-weight:700; margin-bottom:6px;
+  }
+  .about-desc{
+    font-size:14px; color:var(--muted);
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="sect-head">
+  <div class="sect-title">About Us</div>
+  <p class="meta">Learn more about our mission, values, and the love we have for pets.</p>
+</div>
+
+<div class="about-card">
+  <p class="about-text">
+    Welcome to <span class="highlight">Pet Store</span>, your trusted destination for high-quality pet supplies.
+    We believe every pet deserves the best care, comfort, and love. Our store offers a curated selection of products
+    for cats, dogs, and other furry friends — from nutritious food and cozy beds to fun toys and grooming essentials.
+  </p>
+  <p class="about-text">
+    Our mission is simple: to make pets happy and healthy, while making life easier for pet owners.
+    We work with trusted brands and suppliers to ensure every product meets our high standards.
+  </p>
+</div>
+
+<div class="about-grid">
+  <div class="about-item">
+    <div class="about-icon">🐾</div>
+    <div class="about-title">Quality Products</div>
+    <div class="about-desc">Only the best for your pets, tested and approved.</div>
+  </div>
+  <div class="about-item">
+    <div class="about-icon">❤️</div>
+    <div class="about-title">Pet Care Passion</div>
+    <div class="about-desc">We love pets as much as you do.</div>
+  </div>
+  <div class="about-item">
+    <div class="about-icon">🚚</div>
+    <div class="about-title">Fast Delivery</div>
+    <div class="about-desc">Get your orders quickly and reliably.</div>
+  </div>
+</div>
+{% endblock %}
