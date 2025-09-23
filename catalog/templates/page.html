@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Unified Page - Pet Store{% endblock %}
+
+{% block content %}
+<div class="sect-head">
+  <div>
+    <div class="sect-title">Section Title</div>
+    <p class="meta">Optional subtitle or helper text.</p>
+  </div>
+  <a class="see-all" href="/">Back to Home</a>
+</div>
+
+<!-- مثال شبكة بطاقات منتجات -->
+<div class="prod-grid">
+  <div class="card">
+    <div class="thumb">
+      <img src="https://m.media-amazon.com/images/I/61d1w+evo5L._UF1000,1000_QL80_.jpg" alt="Royal Canin Kitten Food">
+    </div>
+    <div class="card-body">
+      <div class="title">Royal Canin Kitten Food</div>
+      <div class="meta">Cat Food</div>
+      <div class="price">250 EGP</div>
+      <div class="actions">
+        <button class="btn">Add to Cart</button>
+        <button class="btn outline">Details</button>
+      </div>
+    </div>
+  </div>
+  <!-- كرر البطاقات حسب الحاجة -->
+</div>
+
+<!-- مثال بانيل نصي (About/Contact) -->
+<div class="panel" style="margin-top:24px">
+  <p class="meta">Panel title</p>
+  <p>Use this unified panel for text blocks, contact info, or about content.</p>
+</div>
+{% endblock %}

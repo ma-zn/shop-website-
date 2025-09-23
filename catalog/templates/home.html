@@ -139,14 +139,14 @@
 {% block content %}
 
 <!-- Hero -->
-<section class="hero" aria-label="Welcome banner">
+<section class="hero">
   <div>
     <span class="hero-badge">New Season · Gentle Care</span>
     <h1>Thoughtful pet supplies for everyday comfort</h1>
-    <p>Soft colors, clean lines, and quality essentials your pets will love. Curated toys, grooming, beds, and bowls.</p>
+    <p>Soft colors, clean lines, and quality essentials your pets will love.</p>
     <div class="hero-cta">
-      <a href="/products/" class="btn">Shop now</a>
-      <a href="/about/" class="btn alt">Learn more</a>
+      <a href="{% url 'products' %}" class="btn">Shop now</a>
+      <a href="{% url 'about' %}" class="btn alt">Learn more</a>
     </div>
   </div>
   <div class="hero-art">
@@ -157,37 +157,53 @@
 <!-- Categories -->
 <div class="sect-head">
   <div class="sect-title">Categories</div>
-  <a class="see-all" href="/products/">See all</a>
+  <a class="see-all" href="{% url 'products' %}">See all</a>
 </div>
 <div class="cat-grid">
-  <a class="cat" href="/products/?category=toys" aria-label="Toys">
-    <div class="cat-emoji">🧸</div>
-    <div>
-      <div class="cat-name">Toys</div>
-      <div class="cat-desc">Play & enrichment</div>
+  {% for cat in categories %}
+    <a class="cat" href="{% url 'products' %}?category={{ cat.id }}" aria-label="{{ cat.name }}">
+      <div class="cat-emoji">{{ cat.icon|default:"📦" }}</div>
+      <div>
+        <div class="cat-name">{{ cat.name }}</div>
+        <div class="cat-desc">{{ cat.description }}</div>
+      </div>
+    </a>
+  {% empty %}
+    <p class="meta">No categories available.</p>
+  {% endfor %}
+</div>
+
+<!-- Featured Products -->
+<div class="sect-head" style="margin-top:28px">
+  <div class="sect-title">Featured</div>
+  <a class="see-all" href="{% url 'products' %}">Browse products</a>
+</div>
+
+<div class="prod-grid">
+  {% for p in products %}
+    <div class="card">
+      <div class="thumb">
+        {% if p.image %}
+          <img src="{{ p.image.url }}" alt="{{ p.name }}" style="width:100%; height:auto;">
+        {% endif %}
+        <span class="tag">{{ p.category.name }}</span>
+      </div>
+      <div class="card-body">
+        <div class="title">{{ p.name }}</div>
+        <div class="meta">In stock: {{ p.stock }}</div>
+        <div class="price">{{ p.price }} EGP</div>
+        <div class="actions">
+          <form method="post" action="{% url 'add_to_cart' p.id %}">
+            {% csrf_token %}
+            <button class="btn" type="submit">Add to cart</button>
+          </form>
+          <a class="btn outline" href="{% url 'product_detail' p.id %}">Details</a>
+        </div>
+      </div>
     </div>
-  </a>
-  <a class="cat" href="/products/?category=grooming" aria-label="Grooming">
-    <div class="cat-emoji">🛁</div>
-    <div>
-      <div class="cat-name">Grooming</div>
-      <div class="cat-desc">Brushes & shampoos</div>
-    </div>
-  </a>
-  <a class="cat" href="/products/?category=beds" aria-label="Beds">
-    <div class="cat-emoji">🛏️</div>
-    <div>
-      <div class="cat-name">Beds</div>
-      <div class="cat-desc">Soft & cozy sleep</div>
-    </div>
-  </a>
-  <a class="cat" href="/products/?category=bowl" aria-label="Bowls">
-    <div class="cat-emoji">🍽️</div>
-    <div>
-      <div class="cat-name">Bowls</div>
-      <div class="cat-desc">Food & water</div>
-    </div>
-  </a>
+  {% empty %}
+    <p class="meta">No products available.</p>
+  {% endfor %}
 </div>
 
 <!-- Featured Products -->

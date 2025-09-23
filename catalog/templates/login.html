@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block title %}Login - Paws & Care{% endblock %}
+
+{% block extra_head %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#FAFAFC;
+    --card:#FFFFFF;
+    --ink:#101828;
+    --muted:#667085;
+    --line:#EEF0F4;
+    --pri:#6C7EE1;
+    --pri-ink:#3F51B5;
+    --accent:#FFB8C6;
+    --shadow:0 10px 30px rgba(16,24,40,.08);
+    --radius:14px;
+    --gap:12px;
+    --container:1120px;
+  }
+
+  /* base adjustments for auth pages (keeps style unified) */
+  .panel{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:22px;
+    box-shadow:var(--shadow);
+  }
+  .auth-wrap{ max-width:440px; margin:36px auto; padding:0 16px; }
+  h2.auth-title{ margin:0 0 10px; font-size:20px; color:var(--pri-ink); }
+  p.auth-sub{ margin:0 0 14px; color:var(--muted); font-size:14px; }
+
+  form.auth-form{ display:grid; gap:12px; }
+  .auth-field{ width:100%; display:block; }
+  .auth-input{
+    width:100%;
+    padding:12px 14px;
+    border-radius:10px;
+    border:1px solid var(--line);
+    font-family:inherit;
+    font-size:14px;
+    color:var(--ink);
+    background:linear-gradient(180deg, #fff, #FBFBFF);
+  }
+  .auth-input:focus{ outline:none; box-shadow:0 6px 18px rgba(63,81,181,.06); border-color:#DDE3FF; }
+
+  .form-row{ display:flex; align-items:center; justify-content:space-between; gap:12px; }
+  .remember { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:14px; }
+
+  .error{
+    background:#FFF1F0;
+    color:#9B2C2C;
+    border:1px solid rgba(155,44,44,.06);
+    padding:10px 12px;
+    border-radius:10px;
+    font-size:14px;
+  }
+
+  .btn{
+    border:none; cursor:pointer; padding:12px 14px; border-radius:12px; font-weight:600;
+    background:var(--pri); color:#fff; font-size:15px;
+    box-shadow:0 8px 20px rgba(63,81,181,.12);
+  }
+  .btn:hover{ background:var(--pri-ink); }
+
+  .link-muted{ color:var(--pri-ink); text-decoration:none; font-weight:600; }
+  .meta{ color:var(--muted); font-size:13px; text-align:center; margin-top:12px }
+
+  /* responsive */
+  @media (max-width: 520px){
+    .auth-wrap{ padding:0 12px; margin:20px auto; }
+    .panel{ padding:16px; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-wrap">
+  <div class="panel">
+    <h2 class="auth-title">Welcome back</h2>
+    <p class="auth-sub">Log in to your Paws & Care account to view orders and manage your cart.</p>
+
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% endif %}
+
+    <form method="post" class="auth-form" autocomplete="on">
+      {% csrf_token %}
+
+      <label class="auth-field">
+        <input class="auth-input" type="text" name="username" placeholder="Username or email" required autocomplete="username">
+      </label>
+
+      <label class="auth-field">
+        <input class="auth-input" type="password" name="password" placeholder="Password" required autocomplete="current-password">
+      </label>
+
+      <div class="form-row">
+        <label class="remember">
+          <input type="checkbox" name="remember" style="width:16px; height:16px; border-radius:4px;">
+          Remember me
+        </label>
+        <a href="#" class="link-muted">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="btn">Login</button>
+    </form>
+
+    <p class="meta">Don't have an account? <a href="{% url 'signup' %}" class="link-muted">Create one</a></p>
+  </div>
+</div>
+{% endblock %}

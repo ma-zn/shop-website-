@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }} - Paws & Care{% endblock %}
+
+{% block content %}
+<div class="card" style="max-width:600px; margin:auto;">
+  <div class="thumb">
+    {% if product.image %}
+      <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width:100%; height:auto;">
+    {% endif %}
+    <span class="tag">{{ product.category.name }}</span>
+  </div>
+  <div class="card-body">
+    <div class="title">{{ product.name }}</div>
+    <div class="meta">In stock: {{ product.stock }}</div>
+    <div class="price">{{ product.price }} EGP</div>
+    <p>{{ product.description }}</p>
+    <div class="actions">
+      <form method="post" action="{% url 'add_to_cart' product.id %}">
+        {% csrf_token %}
+        <button class="btn" type="submit">Add to cart</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

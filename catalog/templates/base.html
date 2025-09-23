@@ -5,26 +5,35 @@
   <meta charset="UTF-8" />
   <title>{% block title %}Paws & Care{% endblock %}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/ui.css' %}">
   {% block extra_head %}{% endblock %}
 </head>
 <body>
-  <!-- Header -->
+  <!-- Header / Navbar -->
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="/">Paws & Care</a>
+      <a class="brand" href="{% url 'home' %}">Paws & Care</a>
       <nav class="nav">
-        <a href="/" class="nav-link">Home</a>
-        <a href="/products/" class="nav-link">Shop</a>
-        <a href="/about/" class="nav-link">About</a>
-        <a href="/contact/" class="nav-link">Contact</a>
-        <a href="/cart/" class="nav-link btn-cart">Cart</a>
+        <a href="{% url 'home' %}" class="nav-link">Home</a>
+        <a href="{% url 'products' %}" class="nav-link">Shop</a>
+        <a href="{% url 'about' %}" class="nav-link">About</a>
+        <a href="{% url 'contact' %}" class="nav-link">Contact</a>
+        <a href="{% url 'cart' %}" class="nav-link btn-cart">Cart</a>
+         {% if user.is_authenticated %}
+          <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+        {% else %}
+          <a href="{% url 'login' %}" class="nav-link">Login</a>
+          <a href="{% url 'signup' %}" class="nav-link">Sign Up</a>
+        {% endif %}
       </nav>
       <button class="menu-toggle" aria-label="Open menu">☰</button>
     </div>
   </header>
 
-  <!-- Main -->
+  <!-- Main Content -->
   <main class="container">
     {% block content %}{% endblock %}
   </main>
@@ -37,13 +46,11 @@
     </div>
   </footer>
 
+  <!-- Mobile Menu Script -->
   <script>
-    // Simple mobile nav toggle
     const toggle = document.querySelector('.menu-toggle');
     const nav = document.querySelector('.nav');
-    if (toggle && nav) {
-      toggle.addEventListener('click', () => nav.classList.toggle('open'));
-    }
+    if (toggle && nav) toggle.addEventListener('click', () => nav.classList.toggle('open'));
   </script>
 </body>
 </html>
